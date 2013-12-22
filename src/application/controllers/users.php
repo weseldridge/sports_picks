@@ -10,10 +10,10 @@ class Users extends CI_Controller {
 
     public function login()
     {
-    	if(isset($_SESSION['username']))
+    	/*if(isset($_SESSION['username']))
         {
             redirect('league');
-        }
+        }*/
     	$this->load->view('template/header');
     	$this->load->view('user/login');
     	$this->load->view('template/footer');
@@ -23,7 +23,7 @@ class Users extends CI_Controller {
     {
     	if($_SERVER['RESQUEST_METHOD'] == 'POST') {
 	    		
-	        $this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');
+	        $this->form_validation->set_rules('password', 'Password', 'required|min_length[4]');
 	        $this->form_validation->set_rules('username', 'Username', 'required');
 
 	        if($this->form_validation->run() !== false ) {
