@@ -54,6 +54,11 @@ class Games_model extends CI_Model
 
 	}
 
+	public function add_comment($data)
+	{
+		$this->db->insert('game_comments', $data);
+	}
+
 
 	/* -----------------------------------------------------------------
     *

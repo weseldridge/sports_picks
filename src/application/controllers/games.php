@@ -8,6 +8,13 @@ class Games extends CI_Controller {
         session_start();
     }
 
+    /* -----------------------------------------------------------------
+    *
+    *                       View Controllers
+    *
+    *  ----------------------------------------------------------------- */
+
+
     public function add()
     {
     	$this->load->view('template/header');
@@ -30,6 +37,44 @@ class Games extends CI_Controller {
     	}
     }
 
+    public function add_comment($game_id)
+    {
+        $data['game_id'] = $game_id;
+
+        $this->load->view('template/header');
+        $this->load->view('games/add_comment', $data);
+        $this->load->view('template/footer');
+    }
+
+
+    /* -----------------------------------------------------------------
+    *
+    *                     CRUD Helper Methods
+    *
+    * ----------------------------------------------------------------- */
+
+
+    public function add_this_comment($game_id)
+    {
+        if($_SERVER('REQUEST_METHOD') == 'POST')
+        {
+            $this->form_validation->set_rules('text', 'Comment', 'required');
+
+            if($this->form_validation->run() !== false ) 
+            {
+                $this->load->model('Games_model');
+
+                $data = array(
+                    'games_id' => $game_id,
+                    'users_id' => $_SESSION['user_id'],
+                    'text' => $this->input->post('text')
+                    );
+
+                $this->Games_model->add_comment($data);
+            }
+        }
+    }
+
     public function add_this_game()
     {
     	if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -39,7 +84,8 @@ class Games extends CI_Controller {
 	        $this->form_validation->set_rules('network', 'Network', 'required');
 	        $this->form_validation->set_rules('play_date', 'Play Date', 'required');
 
-	        if($this->form_validation->run() !== false ) {
+	        if($this->form_validation->run() !== false ) 
+            {
 	        	$this->load->model('Games_model');
 
 	        	$this->Games_model->add($this->input->post('team_1'),
@@ -81,5 +127,11 @@ class Games extends CI_Controller {
 	        }
     	}
     }
+
+    /* -----------------------------------------------------------------
+    *
+    *                     Helper Methods
+    *
+    * ----------------------------------------------------------------- */
 
 }
