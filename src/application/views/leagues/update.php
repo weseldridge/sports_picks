@@ -15,7 +15,7 @@
             <div class="form-group">
                 <?php echo form_label('Description', 'description', array('class'=>'col-sm-4 control-label')); ?>
                 <div class="col-sm-6">
-                    <textarea row="3" class="form-control">
+                    <textarea name="description" row="3" class="form-control">
                         <?php echo $league['description']; ?>
                     </textarea>
                 </div>

@@ -2,6 +2,12 @@
 
 class Leagues_model extends CI_Model
 {
+
+	/* -----------------------------------------------------------------
+    *
+    *                     CRUD Opporations
+    *
+    * ----------------------------------------------------------------- */
 	public function get($id)
 	{
 		$league = $this->db->where('id', $id)
@@ -37,4 +43,31 @@ class Leagues_model extends CI_Model
 		$this->db->where('id', $id)
 					->update('leagues', $data);
 	}
+	
+	public function delete($id)
+	{
+
+	}
+
+	public function add_game($league_id, $game_id)
+	{
+		$data = array(
+			'leagues_id' => $league_id,
+			'games_id' => $game_id
+			);
+		$this->db->insert('league_games', $data);
+	}
+
+	/* -----------------------------------------------------------------
+    *
+    *                     Batch CRUD
+    *
+    * ----------------------------------------------------------------- */
+
+
+    /* -----------------------------------------------------------------
+    *
+    *                     Custom SQL Methods
+    *
+    * ----------------------------------------------------------------- */
 }
