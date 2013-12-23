@@ -5,3 +5,7 @@
 .in-line li {
 	display: inline-block;
 }
+
+.profile {
+	padding-top:5px; 
+}

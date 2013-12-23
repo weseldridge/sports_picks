@@ -47,8 +47,9 @@ class Users extends CI_Controller {
 
     public function settings()
     {
+        $data['user'] = $this->get_user_test();
         $this->load->view('template/header');
-        $this->load->view('user/settings');
+        $this->load->view('user/settings', $data);
         $this->load->view('template/footer');
     }
 
@@ -109,6 +110,11 @@ class Users extends CI_Controller {
         }
     }
 
+    public function update_this_user($id)
+    {
+        
+    }
+
     /* -----------------------------------------------------------------
     *
     *                     Helper Methods
@@ -159,6 +165,23 @@ class Users extends CI_Controller {
     private function email_new_user($data)
     {
 
+    }
+
+    private function get_user_test()
+    {
+        return array(
+            'id' => '1',
+            'username' => 'weseldridge',
+            'email' => 'wes@rebelliouslabs.com',
+            'name' => 'Wes Eldridge',
+            'twitter' => 'weseldridge',
+            'facebook' => 'wleldridge',
+            'google' => '+wesleyeldridge',
+            'use_gravatar' => '1',
+            'gravatar' => 'weseldridge@gmail.com',
+            'pic_url' => 'test_image.jpg',
+            'description' => 'I am the creator and the all knowing. Use this product wisely or face the rath of my hand!',
+            );
     }
 
 }
