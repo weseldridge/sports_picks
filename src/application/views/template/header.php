@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge, chrome=1" />
-    <title>Trade Show Advantage</title>
+    <title>The League</title>
     <!-- This is the local copy. Use CDN for performance
     <link rel="stylesheet" href="/product-development-php-codeigniter-tsa/css/bootstrap.css" />
     -->
