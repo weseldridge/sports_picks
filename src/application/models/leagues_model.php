@@ -23,6 +23,19 @@ class Leagues_model extends CI_Model
 		}
 	}
 
+	public function get_all()
+	{
+		$league = $this->db->get('leagues');
+
+		if($league->num_rows() > 0)
+		{
+			return $league->result_array();
+			
+		} else {
+			return flase;
+		}
+	}
+
 	public function add($title, $description)
 	{
 		$data = array(

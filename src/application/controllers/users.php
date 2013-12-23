@@ -16,10 +16,10 @@ class Users extends CI_Controller {
 
     public function login()
     {
-    	/*if(isset($_SESSION['username']))
+    	if(isset($_SESSION['username']))
         {
-            redirect('league');
-        }*/
+            redirect('leagues');
+        }
     	$this->load->view('template/header');
     	$this->load->view('user/login');
     	$this->load->view('template/footer');
