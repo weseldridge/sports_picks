@@ -45,6 +45,13 @@ class Users extends CI_Controller {
         redirect('users/login');
     }
 
+    public function settings()
+    {
+        $this->load->view('template/header');
+        $this->load->view('user/settings');
+        $this->load->view('template/footer');
+    }
+
     /* -----------------------------------------------------------------
     *
     *                     CRUD Helper Methods
