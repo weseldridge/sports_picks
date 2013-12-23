@@ -39,6 +39,12 @@ class Users extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function logout()
+    {
+        unset($_SESSION['username']);
+        redirect('users/login');
+    }
+
     /* -----------------------------------------------------------------
     *
     *                     CRUD Helper Methods
