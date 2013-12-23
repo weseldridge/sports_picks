@@ -1,3 +1,7 @@
 .container {
 	padding-top: 80px;
 }
+
+.in-line li {
+	display: inline-block;
+}
