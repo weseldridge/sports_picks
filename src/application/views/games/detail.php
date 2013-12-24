@@ -1,7 +1,3 @@
-<div class="col-sm-12">
-	<h1>Profile</h1>
-</div>
-
 <div class="col-sm-6 col-sm-offset-3">
 	<div class="well">
 		<div class="row">

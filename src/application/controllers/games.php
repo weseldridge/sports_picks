@@ -132,19 +132,23 @@ class Games extends CI_Controller {
 	        	$this->load->model('Games_model');
 
                 $data = array(
+                    'id' => $id,
                     'team_1' => $this->input->post('team_1'),
                     'team_2' => $this->input->post('team_2'),
                     'network' => $this->input->post('network'),
                     'play_date' => $this->input->post('play_date'),
-                    'team_1_won' => $this->input->post('team_1_won')
+                    'team_1_won' => $this->input->post('team_1_won'),
+                    'team_1_score' => $this->input->post('team_1_score'),
+                    'team_2_score' => $this->input->post('team_2_score'),
+                    'final' => $this->input->post('final'),
                     );
 
 	        	$this->Games_model->upate($data);
-                
-	        	redirect('games/add');
+
+	        	redirect('games/detail/' . $data['id']);
 
 	        } else {
-	     		redirect('games/add');
+	     		redirect('games/detail/' . $data['id']);
 	        }
     	}
     }

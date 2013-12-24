@@ -9,14 +9,7 @@ class Games_model extends CI_Model
     *
     * ----------------------------------------------------------------- */
 
-	public function add($team_1, $team_2, $network, $play_date){
-
-		$data = array(
-			'team_1' => $team_1,
-			'team_2' => $team_2,
-			'network' => $network,
-			'play_date' => $play_date
-			);
+	public function add($data){
 
 		$this->db->insert('games', $data);
 	}
@@ -36,16 +29,9 @@ class Games_model extends CI_Model
 		}
 	}
 
-	public function update($id, $team_1, $team_2, $network, $play_date, $team_1_won)
+	public function update($data)
 	{
-		$data = array(
-			'team_1' => $team_1,
-			'team_2' => $team_2,
-			'network' => $network,
-			'play_date' => $play_date,
-			'team_1_won' => $team_1_won
-			);
-		$this->db->where('id',$id)
+		$this->db->where('id',$data['id'])
 				->update('games', $data);
 	}
 
