@@ -1,6 +1,7 @@
 <div class="col-sm-4 col-sm-offset-4">
     <div class="row signin">
-        <?php echo form_open('user/user_login', array('class'=>'form-horizontal')); ?>
+        <?php echo validation_errors(); ?>
+        <?php echo form_open('users/user_login', array('class'=>'form-horizontal')); ?>
         <fieldset>
             <legend>Please Sign In</legend>
 

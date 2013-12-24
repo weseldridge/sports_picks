@@ -6,6 +6,10 @@ class Leagues extends CI_Controller {
     {
         parent::__construct();
         session_start();
+        if(!isset($_SESSION['username']))
+        {
+            redirect('users/login');
+        }
     }
 
     /* -----------------------------------------------------------------
@@ -173,7 +177,10 @@ class Leagues extends CI_Controller {
 
     public function join_this_league($id)
     {
-        
+        $this->load->model('Leagues_model');
+        $this->Leagues_model->add_user_league($_SESSION['user_id'],$id);
+
+        redirect('leagues');
     }
     
     /* -----------------------------------------------------------------

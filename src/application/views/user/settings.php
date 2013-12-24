@@ -12,7 +12,7 @@
 			<div class="col-sm-3">
 				<div>
 					<?php if($user['use_gravatar']): ?>
-						<img src=<?php echo "http://www.gravatar.com/avatar/" . md5(strtolower(trim($user['gravatar'])));?>>
+						<img src=<?php echo "http://www.gravatar.com/avatar/" . md5(strtolower(trim($user['gravatar_email'])));?>>
 					<?php else: ?>
 						<img src=<?php echo $this->config->item('base_url') . $user['pic_url']; ?>>
 					<?php endif; ?>
@@ -24,7 +24,7 @@
 			</div>
 		</div>
 		<hr/>
-		<form class="form" method="post" action=<?php echo $this->config->item('full_url') . 'users/update_this_user/' . $user['id'];?>>
+		<form class="form" method="post" action=<?php echo $this->config->item('full_url') . '/users/update_this_user/' . $user['id'];?>>
 		<div class="row profile">
 			<div class="col-sm-5 text-right">
 				<strong>Username</strong>

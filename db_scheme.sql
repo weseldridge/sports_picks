@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 22, 2013 at 07:13 PM
+-- Generation Time: Dec 24, 2013 at 03:47 AM
 -- Server version: 5.5.33
 -- PHP Version: 5.5.3
 
@@ -44,7 +44,15 @@ CREATE TABLE `games` (
   `network` varchar(45) DEFAULT NULL,
   `play_date` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `games`
+--
+
+INSERT INTO `games` (`id`, `team_1`, `team_2`, `team_1_won`, `network`, `play_date`) VALUES
+(1, 'Colorado State', 'Washington State', NULL, 'ESPN', '2013-12-21 00:00:00'),
+(2, 'Fresno State', 'USC', NULL, 'ABC', '2013-12-21 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -74,7 +82,15 @@ CREATE TABLE `leagues` (
   `description` text,
   `creatation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `leagues`
+--
+
+INSERT INTO `leagues` (`id`, `title`, `description`, `creatation`) VALUES
+(1, 'Fall 2013 Friends Bowl', 'This is a league for a group of friends playing across the southeast.', '2013-12-22 21:53:22'),
+(2, 'Test League 2', 'This is a play league. I does not matter what you think...', '2013-12-23 19:34:44');
 
 -- --------------------------------------------------------
 
@@ -114,7 +130,15 @@ CREATE TABLE `league_games` (
   `leagues_id` int(11) NOT NULL,
   `games_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `league_games`
+--
+
+INSERT INTO `league_games` (`id`, `leagues_id`, `games_id`) VALUES
+(1, 1, 1),
+(2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -126,19 +150,25 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `first_name` varchar(20) NOT NULL,
-  `last_name` varchar(20) NOT NULL,
+  `name` varchar(60) DEFAULT NULL,
   `user_level` int(11) NOT NULL DEFAULT '0',
   `password` varchar(250) NOT NULL,
   `pic_url` varchar(100) DEFAULT NULL,
-  `us_gravatar` int(1) NOT NULL DEFAULT '0',
+  `use_gravatar` int(1) NOT NULL DEFAULT '0',
   `gravatar_email` varchar(100) DEFAULT NULL,
-  `description` text NOT NULL,
+  `description` text,
   `twitter` varchar(50) DEFAULT NULL,
   `facebook` varchar(100) DEFAULT NULL,
   `google` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `name`, `user_level`, `password`, `pic_url`, `use_gravatar`, `gravatar_email`, `description`, `twitter`, `facebook`, `google`) VALUES
+(1, 'weseldridge', 'weseldridge@gmail.com', 'Wesley Eldridge', 5, '4193da08faea237c36c73a9f95647dd6098dcea4', NULL, 1, 'weseldridge@gmail.com', 'I am the creator. Get your act together and win a damn game!', 'weseldridge', NULL, NULL);
 
 -- --------------------------------------------------------
 

@@ -71,6 +71,31 @@ class Leagues_model extends CI_Model
 		$this->db->insert('league_games', $data);
 	}
 
+	public function add_user_league($user_id, $league_id)
+	{
+		$data = array(
+			'users_id' => $user_id,
+			'leagues_id' => $league_id
+			);
+		$this->db->insert('user_leagues', $data);
+	}
+
+	public function get_user_league($user_id)
+	{
+		
+		$leagues = $this->db->select('leagues.id, leagues.title, leagues.description')
+							->from('leagues')
+							->join('user_leagues', 'leagues.id = user_leagues.leagues_id')
+							->get();
+
+		if($leagues->num_rows() > 0)
+		{
+			return $leagues->result_array();
+		} else {
+			return false;
+		}
+	}	
+
 	/* -----------------------------------------------------------------
     *
     *                     Batch CRUD

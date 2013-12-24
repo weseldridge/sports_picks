@@ -6,6 +6,10 @@ class Games extends CI_Controller {
     {
         parent::__construct();
         session_start();
+        if(!isset($_SESSION['username']))
+        {
+            redirect('users/login');
+        }
     }
 
     /* -----------------------------------------------------------------

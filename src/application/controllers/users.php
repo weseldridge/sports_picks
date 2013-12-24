@@ -27,6 +27,10 @@ class Users extends CI_Controller {
 
     public function add()
     {
+        if(!isset($_SESSION['username']))
+        {
+            redirect('users/login');
+        }
         $this->load->view('template/header');
         $this->load->view('user/add');
         $this->load->view('template/footer');
@@ -47,7 +51,11 @@ class Users extends CI_Controller {
 
     public function settings()
     {
-        $data['user'] = $this->get_user_test();
+        if(!isset($_SESSION['username']))
+        {
+            redirect('users/login');
+        }
+        $data['user'] = $this->get_user($_SESSION['user_id']);
         $this->load->view('template/header');
         $this->load->view('user/settings', $data);
         $this->load->view('template/footer');
@@ -61,7 +69,7 @@ class Users extends CI_Controller {
 
     public function add_this_user()
     {
-        if($_SERVER['RESQUEST_METHOD'] == 'POST')
+        if($_SERVER['REQUEST_METHOD'] == 'POST')
         {
             $this->form_validation->set_rules('password', 'Password', 'required|min_length[8]|matches[cpassword]');
             $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
@@ -87,7 +95,7 @@ class Users extends CI_Controller {
 
     public function register_this_user()
     {
-        if($_SERVER['RESQUEST_METHOD'] == 'POST')
+        if($_SERVER['REQUEST_METHOD'] == 'POST')
         {
             $this->form_validation->set_rules('password', 'Password', 'required|min_length[8]|matches[cpassword]');
             $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
@@ -112,7 +120,37 @@ class Users extends CI_Controller {
 
     public function update_this_user($id)
     {
-        
+        if($_SERVER['REQUEST_METHOD'] == 'POST')
+        {
+            echo "is a post";
+            $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+            echo "set rules";
+            if($this->form_validation->run() !== false ) 
+            {
+                echo "validatoin passed";
+                $data = array(
+                    'id' => $id,
+                    'email'=> $this->input->post('email'),
+                    'name' => $this->input->post('name'),
+                    'twitter' => $this->input->post('twitter'),
+                    'facebook' => $this->input->post('facebook'),
+                    'google' => $this->input->post('google')
+                    );
+
+                $this->load->model('Users_model');
+                $this->Users_model->update($data);
+                echo "redirect";
+                redirect('users/settings');
+            }
+        } else {
+            redirect('users/settings');
+        }
+    }
+
+    public function get_user($id)
+    {
+        $this->load->model('Users_model');
+        return $this->Users_model->get($id);
     }
 
     /* -----------------------------------------------------------------
@@ -122,7 +160,7 @@ class Users extends CI_Controller {
     * ----------------------------------------------------------------- */
     public function user_login()
     {
-    	if($_SERVER['RESQUEST_METHOD'] == 'POST') 
+    	if($_SERVER['REQUEST_METHOD'] == 'POST') 
         {
 	    		
 	        $this->form_validation->set_rules('password', 'Password', 'required|min_length[4]');
@@ -130,7 +168,6 @@ class Users extends CI_Controller {
 
 	        if($this->form_validation->run() !== false ) 
             {
-
 	        	$this->load->model('Users_model');
 	        	// Check to see if user is valid
 	        	// Returns false or a user
@@ -140,24 +177,25 @@ class Users extends CI_Controller {
 	        	// If valid user set session information.
 	        	if($user)
                 {
+                    echo "there is a user";
         			$_SESSION['username'] = $user['username'];
         			$_SESSION['user_id'] = $user['id'];
         			$_SESSION['user_level'] = $user['user_level'];
 
-        			redirect('league');
+        			redirect('leagues');
 	        	} else {
 	        		$this->load->view('template/header');
-	    			$this->load->view('user/login');
-	    			$this->load->view('template/footer');
+                    $this->load->view('user/login');
+                    $this->load->view('template/footer');
 	        	}
 	        } else {
 	        	$this->load->view('template/header');
-    			$this->load->view('user/login');
-    			$this->load->view('template/footer');
+                $this->load->view('user/login');
+                $this->load->view('template/footer');
 	        }
 
     	} else {
-    		redirect('user/login');
+    		redirect('users/login');
     	}
     }
 
@@ -166,6 +204,7 @@ class Users extends CI_Controller {
     {
 
     }
+
 
     private function get_user_test()
     {
