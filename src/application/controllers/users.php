@@ -61,6 +61,14 @@ class Users extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function detail($id)
+    {
+        $data['user'] = $this->get_user($id);
+        $this->load->view('template/header');
+        $this->load->view('user/detail', $data);
+        $this->load->view('template/footer');
+    }
+
     /* -----------------------------------------------------------------
     *
     *                     CRUD Helper Methods

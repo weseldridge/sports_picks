@@ -25,7 +25,7 @@
 			<div class="col-sm-12">
 				<strong>League Players</strong>
 			</div>
-			<table class="table">
+			<table class="table table-hover">
 				<thead>
 					<tr>
 						<th>Name</th>
@@ -33,10 +33,10 @@
 						<th>Admin</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody class="clickable">
 					<?php if($players): ?>
 						<?php foreach($players as $player): ?>
-						<tr>
+						<tr href="<?php echo $this->config->item('full_url') . '/users/detail/' . $player['id']; ?>">
 							<th><?php echo $player['name'];?></th>
 							<th></th>
 							<th></th>
