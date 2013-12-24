@@ -50,6 +50,15 @@ class Games extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function detail($id)
+    {
+        $data['game'] = $this->get_game($id);
+
+        $this->load->view('template/header');
+        $this->load->view('games/detail', $data);
+        $this->load->view('template/footer');
+    }
+
 
     /* -----------------------------------------------------------------
     *
@@ -92,10 +101,14 @@ class Games extends CI_Controller {
             {
 	        	$this->load->model('Games_model');
 
-	        	$this->Games_model->add($this->input->post('team_1'),
-	        							$this->input->post('team_2'),
-	        							$this->input->post('network'),
-	        							$this->input->post('play_date'));
+                $data = array(
+                    'team_1' => $this->input->post('team_1'),
+                    'team_2' => $this->input->post('team_2'),
+                    'network' => $this->input->post('network'),
+                    'play_date' => $this->input->post('play_date')
+                );
+
+	        	$this->Games_model->add($data);
 	        	redirect('games/add');
 
 	        } else {
@@ -118,18 +131,28 @@ class Games extends CI_Controller {
 	        if($this->form_validation->run() !== false ) {
 	        	$this->load->model('Games_model');
 
-	        	$this->Games_model->upate($id,
-	        							$this->input->post('team_1'),
-	        							$this->input->post('team_2'),
-	        							$this->input->post('network'),
-	        							$this->input->post('play_date'),
-	        							$this->input->post('team_1_won'));
+                $data = array(
+                    'team_1' => $this->input->post('team_1'),
+                    'team_2' => $this->input->post('team_2'),
+                    'network' => $this->input->post('network'),
+                    'play_date' => $this->input->post('play_date'),
+                    'team_1_won' => $this->input->post('team_1_won')
+                    );
+
+	        	$this->Games_model->upate($data);
+                
 	        	redirect('games/add');
 
 	        } else {
 	     		redirect('games/add');
 	        }
     	}
+    }
+
+    private function get_game($id)
+    {
+        $this->load->model('Games_model');
+        return $this->Games_model->get($id);
     }
 
     /* -----------------------------------------------------------------
