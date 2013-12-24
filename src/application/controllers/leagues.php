@@ -122,7 +122,9 @@ class Leagues extends CI_Controller {
             {
                 $this->load->model('Leagues_model');
                 $this->Leagues_model->add($this->input->post('title'),
-                $this->input->post('description'));
+                                          $this->input->post('description'),
+                                          $_SESSION['user_id']);
+
 
                 redirect('leagues/add');
 

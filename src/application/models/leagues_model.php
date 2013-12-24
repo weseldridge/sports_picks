@@ -36,7 +36,7 @@ class Leagues_model extends CI_Model
 		}
 	}
 
-	public function add($title, $description)
+	public function add($title, $description, $user_id)
 	{
 		$data = array(
 			'title' => $title,
@@ -44,6 +44,16 @@ class Leagues_model extends CI_Model
 			);
 
 		$this->db->insert('leagues', $data);
+		// Get last ID inserted into db
+		$league_id = $this->db->insert_id();
+		$admin = array(
+			'leagues_id'=> $league_id,
+			'users_id' => $user_id
+			);
+		// Add current user to admin of the created league
+		$this->db->insert('league_admins', $admin);
+		// Add that league to their league list
+		$this->add_user_league($user_id, $league_id);
 	}
 
 	public function update($id, $title, $description)
