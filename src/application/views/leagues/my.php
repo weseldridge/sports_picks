@@ -7,9 +7,9 @@
 					<th>Description</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="clickable">
 				<?php foreach($leagues as $league):?>
-				<tr>
+				<tr href="<?php echo $this->config->item('full_url') . '/leagues/detail/' . $league['id'];?>">
 					<td><?php echo $league['title'];?></td>
 					<td><?php echo $league['description'];?></td>
 				</tr>

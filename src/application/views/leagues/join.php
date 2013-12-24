@@ -10,14 +10,16 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach($leagues as $league):?>
-				<tr>
-					<td><?php echo $league['title'];?></td>
-					<td><?php echo $league['title'];?></td>
-					<td><?php echo $league['title'];?></td>
-					<td><button class="btn btn-default"><a href=<?php echo $this->config->item('full_url') . '/leagues/join_this_league/' . $league['id'];?>>Join</a> </button></td>
-				</tr>
-				<?php endforeach; ?>
+				<?php if($leagues): ?>
+					<?php foreach($leagues as $league):?>
+					<tr>
+						<td><?php echo $league['title'];?></td>
+						<td><?php echo $league['title'];?></td>
+						<td><?php echo $league['title'];?></td>
+						<td><button class="btn btn-default"><a href=<?php echo $this->config->item('full_url') . '/leagues/join_this_league/' . $league['id'];?>>Join</a> </button></td>
+					</tr>
+					<?php endforeach; ?>
+				<?php endif; ?>
 			</tbody>
 		</table>	
 	</div>

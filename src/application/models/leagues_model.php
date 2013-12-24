@@ -36,6 +36,22 @@ class Leagues_model extends CI_Model
 		}
 	}
 
+	public function get_available_leagues($user_id)
+	{
+		$leagues = $this->db->select('leagues.id, leagues.title, leagues.description')
+							->from('leagues')
+							->join('user_leagues', 'leagues.id = user_leagues.leagues_id')
+							->where('user_leagues.users_id !=', $user_id)
+							->get();
+
+		if($leagues->num_rows() > 0)
+		{
+			return $leagues->result_array();
+		} else {
+			return false;
+		}
+	}
+
 	public function add($title, $description, $user_id)
 	{
 		$data = array(
@@ -92,7 +108,6 @@ class Leagues_model extends CI_Model
 
 	public function get_user_league($user_id)
 	{
-		
 		$leagues = $this->db->select('leagues.id, leagues.title, leagues.description')
 							->from('leagues')
 							->join('user_leagues', 'leagues.id = user_leagues.leagues_id')
@@ -105,7 +120,23 @@ class Leagues_model extends CI_Model
 		} else {
 			return false;
 		}
-	}	
+	}
+
+	public function get_players($league_id)	
+	{
+		$players = $this->db->select('users.id, users.name')
+						->from('users')
+						->join('user_leagues', 'user_leagues.users_id = users.id')
+						->where('user_leagues.leagues_id', $league_id)
+						->get();
+		if($players->num_rows() > 0)
+		{
+			return $players->result_array();
+		} else {
+			return false;
+		}
+
+	}
 
 	/* -----------------------------------------------------------------
     *

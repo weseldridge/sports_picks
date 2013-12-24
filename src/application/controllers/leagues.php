@@ -66,6 +66,15 @@ class Leagues extends CI_Controller {
         $this->load->view('leagues/my', $data);
         $this->load->view('template/footer');
     }
+
+    public function detail($league_id)
+    {
+        $data['league'] = $this->get($league_id);
+        $data['players'] = $this->get_players($league_id);
+        $this->load->view('template/header');
+        $this->load->view('leagues/details', $data);
+        $this->load->view('template/footer');
+    }
     /*
     public function add_user_to_league()
     {
@@ -182,7 +191,7 @@ class Leagues extends CI_Controller {
     private function get_leagues()
     {
         $this->load->model('Leagues_model');
-        return $this->Leagues_model->get_all();
+        return $this->Leagues_model->get_available_leagues($_SESSION['user_id']);
     }
 
     public function join_this_league($id)
@@ -193,12 +202,23 @@ class Leagues extends CI_Controller {
         redirect('leagues');
     }
 
-    public function get_my_leagues()
+    private function get_my_leagues()
     {
         $this->load->model('Leagues_model');
         return $this->Leagues_model->get_user_league($_SESSION['user_id']);
     }
+
+    private function get($id)
+    {
+        $this->load->model('Leagues_model');
+        return $this->Leagues_model->get($id);
+    }
     
+    private function get_players($id)
+    {
+        $this->load->model('Leagues_model');
+        return $this->Leagues_model->get_players($id);   
+    }
     /* -----------------------------------------------------------------
     *
     *                     Helper Methods
