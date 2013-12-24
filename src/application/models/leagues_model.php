@@ -86,6 +86,7 @@ class Leagues_model extends CI_Model
 		$leagues = $this->db->select('leagues.id, leagues.title, leagues.description')
 							->from('leagues')
 							->join('user_leagues', 'leagues.id = user_leagues.leagues_id')
+							->where('user_leagues.users_id', $user_id)
 							->get();
 
 		if($leagues->num_rows() > 0)

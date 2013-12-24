@@ -58,6 +58,14 @@ class Leagues extends CI_Controller {
         $this->load->view('leagues/join', $data);
         $this->load->view('template/footer');
     }
+
+    public function my()
+    {
+        $data['leagues'] = $this->get_my_leagues();
+        $this->load->view('template/header');
+        $this->load->view('leagues/my', $data);
+        $this->load->view('template/footer');
+    }
     /*
     public function add_user_to_league()
     {
@@ -181,6 +189,12 @@ class Leagues extends CI_Controller {
         $this->Leagues_model->add_user_league($_SESSION['user_id'],$id);
 
         redirect('leagues');
+    }
+
+    public function get_my_leagues()
+    {
+        $this->load->model('Leagues_model');
+        return $this->Leagues_model->get_user_league($_SESSION['user_id']);
     }
     
     /* -----------------------------------------------------------------

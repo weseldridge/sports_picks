@@ -17,7 +17,7 @@
     <a class="navbar-brand" href="<?php echo $this->config->item('full_url') . "/dashboard"?>">The League</a>
     <ul class="nav navbar-nav navbar-left">
         <li><a href="<?php echo $this->config->item('full_url') . "/leagues"?>">Home</a></li>
-        <li><a href="#">My Leagues</a></li>
+        <li><a href="<?php echo $this->config->item('full_url') . "/leagues/my"?>">My Leagues</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
