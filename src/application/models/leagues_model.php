@@ -122,6 +122,20 @@ class Leagues_model extends CI_Model
 		}
 	}
 
+	// This will return the league_games records for a give league id
+	public function get_league_games($id)
+	{
+		$games = $this->db->where('leagues_id', $id)
+						->get('league_games');
+
+		if($games->num_rows() > 0)
+		{
+			return $games->result_array();
+		} else {
+			return false;
+		}
+	}
+
 	public function get_players($league_id)	
 	{
 		$players = $this->db->select('users.id, users.name')

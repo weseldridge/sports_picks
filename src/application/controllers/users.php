@@ -6,8 +6,6 @@ class Users extends CI_Controller {
     {
         parent::__construct();
         session_start();
-    }
-
     /* -----------------------------------------------------------------
     *
     *                       View Controllers

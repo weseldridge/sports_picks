@@ -45,7 +45,20 @@ class Games_model extends CI_Model
 		$this->db->insert('game_comments', $data);
 	}
 
-
+	public function none_league_games($league_id)
+	{
+		$games = $this->db->select('id, team_1, team_2')
+							->where('')
+							->where('league_games.games_id <>', 'games.id')
+							->where('final <>', '1')
+							->get('games');
+		if($games->num_rows() > 0)
+		{
+			return $games;
+		} else {
+			return false;
+		}
+	}
 	/* -----------------------------------------------------------------
     *
     *                     Batch CRUD

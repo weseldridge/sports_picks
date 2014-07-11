@@ -42,15 +42,6 @@ class Leagues extends CI_Controller {
         $this->load->view('template/footer');
     }
 
-    public function add_game_to_league()
-    {
-        $data['games'] = $this->get_games();
-
-        $this->load->view('template/header');
-        $this->load->view('leagues/add_game', $data);
-        $this->load->view('template/footer');
-    }
-
     public function join()
     {
         $data['leagues'] = $this->get_leagues();
@@ -73,6 +64,14 @@ class Leagues extends CI_Controller {
         $data['players'] = $this->get_players($league_id);
         $this->load->view('template/header');
         $this->load->view('leagues/details', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function add_game($league_id)
+    {
+        $data['games'] = $this->get_games_not_in_league($league_id);
+        $this->load->view('template/header');
+        $this->load->view('leagues/add_game', $data);
         $this->load->view('template/footer');
     }
     /*
@@ -168,18 +167,10 @@ class Leagues extends CI_Controller {
     }
 
     // [TODO] Input for users league [/TODO]
-    public function add_this_game_to_league()
+    public function add_this_game_to_league($league_id)
     {
         if($_SERVER['REQUEST_METHOD'] == 'POST')
         {
-            $league_id = 1;
-            $games = $this->input->post('games');
-            $this->load->model('Leagues_model');
-            
-            foreach($games as $game)
-            {
-                $this->Leagues_model->add_game($league_id, $game);
-            }
         }
     }
 
@@ -219,6 +210,16 @@ class Leagues extends CI_Controller {
         $this->load->model('Leagues_model');
         return $this->Leagues_model->get_players($id);   
     }
+
+    private function get_games_not_in_league($league_id)
+    {
+        $this->load->model('Games_model');
+        $this->load->model('Leagues_model');
+        $games = $this->Games_model->none_league_games();
+        //$league_games = $this->Leagues_model->get_league_games($id);
+
+        //$games = $this->make_game_list($games, $league_games);
+    }
     /* -----------------------------------------------------------------
     *
     *                     Helper Methods
@@ -244,6 +245,23 @@ class Leagues extends CI_Controller {
         return $this->Games_model->get_all();
     }
 
+    // Not a good way to handle this...
+    // Figures our SQL request to cut down on O(n) = n^2
+    private function make_game_list($all_games, $league_games)
+    {
+        $games = array();
+        $i = 0;
+        for ($i=0; $i < $all_games.count(); $i++) { 
+            for ($j=0; $j < $league_games.count(); $j++) { 
+                if($all_games[$i]['id'] == $league_games[$j]['games_id'])
+                {
+                    array_push($games, $all_games[$i]);
+                }
+            }
+        }
+
+        return $games;
+    }
 
 
 }
